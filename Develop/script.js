@@ -1,12 +1,15 @@
 // Global vars
-let today = new Date();
+let today = new Date()
 let weekday = today.getDay()
-let month = today.getMonth();
-let year = today.getFullYear();
+let month = today.getMonth()
+let year = today.getFullYear()
+let currentTime = today.toLocaleString('en-US', { hour: 'numeric', hour12: true })
+console.log(currentTime)
 const container = document.getElementsByClassName('container')
+const saveButtonArr = document.getElementsByClassName('saveBtn')
 
 // Convert day number to string
-let days = [
+const days = [
 	  'Sunday',
 	  'Monday',
 	  'Tuesday',		  
@@ -15,7 +18,7 @@ let days = [
 	  'Friday',
 	  'Saturday']
 //Convert month number to string
-let months = [
+const months = [
 	'January',
 	'February',
 	'March',
@@ -33,39 +36,16 @@ let months = [
 let documentDate = document.getElementById('currentDay')
 documentDate.textContent = days[weekday] + ', ' + months[month] + ' ' + today.getDate() + ' ' + year
 
-// Create row item 
-let row1 = document.createElement('div')
-let row2 =  document.createElement('div')
-row1.setAttribute('class', 'row')
-row2.setAttribute('class', 'row')
+// Row color
 
-let hour1 = document.createElement('div');
-hour1.textContent = '9 AM';
-hour1.setAttribute('class', 'hour')
-row1.appendChild(hour1)
-let hour2 = document.createElement('div');
-hour2.textContent = '9 AM';
-hour2.setAttribute('class', 'hour')
-row2.appendChild(hour2)
+const timeNodes = document.getElementsByClassName('hour');
+let timeArr = Object.values(timeNodes);
 
-let textArea1 = document.createElement('textarea')
-row1.append(textArea1)
-let textArea2 = document.createElement('textarea')
-row2.append(textArea2)
+timeArr.forEach(time => {
+	let timeNumber = time.textContent.toLocaleString('en-US', { hour: 'numeric', hour12: true })
+	console.log(timeNumber < currentTime)
+	timeNumber < currentTime ? time.nextElementSibling.classList.add('future') : null
+	timeNumber == currentTime ? time.nextElementSibling.classList.add('present') : null
+	timeNumber > currentTime ? time.nextElementSibling.classList.add('past') : null
+})
 
-let saveButton1 = document.createElement('div')
-saveButton1.setAttribute('class', 'saveBtn')
-let saveIcon1 = document.createElement('i')
-saveIcon1.setAttribute('class', 'fa fa-4x fa-solid fa-folder')
-saveButton1.textContent = 'Save'
-saveButton1.append(saveIcon1)
-row1.append(saveButton1)
-let saveButton2 = document.createElement('button')
-saveButton2.setAttribute('class', 'saveBtn')
-let saveIcon2 = document.createElement('i')
-saveIcon2.setAttribute('class', 'fa fa-4x fa-solid fa-folder')
-saveButton2.append(saveIcon2)
-row2.append(saveButton2)
-
-container[0].append(row1)
-container[0].append(row2)
