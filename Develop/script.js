@@ -39,7 +39,6 @@ let savedData = JSON.parse(localStorage.getItem('savedData'))
 if (!savedData) {
 	savedData = {}
 }
-console.log(savedData)
 
 // Row color
 const timeNodes = document.getElementsByClassName('hour');
@@ -48,7 +47,6 @@ let timeArr = Object.values(timeNodes);
 timeArr.forEach(time => {
 	// Check for localStorage saved items
 	if (savedData[time.textContent]) {
-		console.log(savedData[time.textContent])
 		$('.hour').each(function(item) {
 			if ($(this).text() == time.textContent) {
 				$(this).siblings('textarea').val(savedData[time.textContent])
@@ -67,7 +65,6 @@ timeArr.forEach(time => {
 $('.saveBtn').click(function (e) { 
 	let time = $(this).siblings('.hour').text()
 	let data = $(this).siblings('textarea').val()
-	console.log(time, data)
 	savedData[time] = data
 	localStorage.setItem('savedData', JSON.stringify(savedData))
 });
